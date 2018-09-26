@@ -10,6 +10,10 @@ const Drawer = createDrawerNavigator({
     Login:{
         screen:Login
     }
-});
+},
+    {
+        initialRouteName:'Home'
+    }
+);
 
 export default Drawer;
