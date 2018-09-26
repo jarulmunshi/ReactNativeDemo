@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text,View,TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Button} from './Common';
+import {DrawerAction} from 'react-navigation';
 const Header = (props) =>{
     const {headerStyle,textStyle} = styles;
     return(
@@ -10,6 +12,9 @@ const Header = (props) =>{
                     {/*<Icon style={{ color:'rgb(254,40,81)'}}name="list-ul" size={25}/>*/}
                 {/*</TouchableOpacity>*/}
 
+            {/*</View>*/}
+            {/*<View style={{flex:1}}>*/}
+                {/*/!*<Button onPress={()=>{this.props.navigation.dispatch(DrawerAction.openDrawer());}}>open</Button>*!/*/}
             {/*</View>*/}
             <View style={{flex:3,flexDirection:'row'}}>
                 {/*<Icon style={{ color:'rgb(254,40,81)',paddingRight:5}} name="user" size={25}/>*/}

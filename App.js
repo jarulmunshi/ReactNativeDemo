@@ -10,7 +10,8 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {Header} from './src/component/Common'
 import Home from './src/Home';
-import Drawer from './src/navigation/drawer'
+import Drawer from './src/navigation/drawer';
+import Login from './src/Login';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -23,9 +24,9 @@ export default class App extends Component<Props> {
   render() {
     return (
         <View>
-          <Header headerText="User Registration"/>
-          {/*<Drawer/>*/}
-          <Home/>
+          <Header headerText="Login"/>
+          <Drawer/>
+          <Login/>
         </View>
 
     );

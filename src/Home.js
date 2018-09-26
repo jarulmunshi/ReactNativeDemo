@@ -71,7 +71,7 @@ class Home extends Component{
         }
         else {
             this.setState({emailError:'',ageError:'',passwordError:'',iconError:''});
-            alert(this.state.email+" "+this.state.age+ " "+this.state.password+" "+this.state.name+" "+this.state.image);
+            //alert(this.state.email+" "+this.state.age+ " "+this.state.password+" "+this.state.name+" "+this.state.image);
             axios.post('http://localhost:3000/',{
                 name:this.state.name,
                 email:this.state.email,
@@ -85,12 +85,6 @@ class Home extends Component{
                 console.log(err);
             });
             this.setState({name:'',email:'',password:'',age:'',imageName:''});
-            //alert(this.state.email +"\n"+ this.state.age);
-            // const data=new FormData();
-            // data.append('fileData',{
-            //     email:this.state.email
-            // })
-            //alert(data);
         }
     }
     render(){
