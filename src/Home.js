@@ -4,6 +4,7 @@ import {Card,CardSection,Button,Input,Header} from './component/Common';
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {registerUser} from './FunctionCall/Call'
 class Home extends Component{
     static navigationOptions = {
         drawerLabel: 'Registration',
@@ -72,18 +73,19 @@ class Home extends Component{
         else {
             this.setState({emailError:'',ageError:'',passwordError:'',iconError:''});
             //alert(this.state.email+" "+this.state.age+ " "+this.state.password+" "+this.state.name+" "+this.state.image);
-            axios.post('http://localhost:3000/',{
+            const objUser = {
                 name:this.state.name,
                 email:this.state.email,
                 password:this.state.password,
                 age:this.state.age,
                 imageName:this.state.image
-            }).then(()=>{
+            };
+            registerUser(objUser).then(() => {
                 alert("Valid Data");
-             }).catch((err)=>{
+            }).catch((err) => {
                 alert(err);
                 console.log(err);
-            });
+            })
             this.setState({name:'',email:'',password:'',age:'',imageName:''});
         }
     };

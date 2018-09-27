@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Text} from 'react-native';
 import {CardSection,Card,Input,Button,Header} from './component/Common';
-import axios from 'axios';
+import {loginUser} from './FunctionCall/Call';
 class Login extends Component {
     constructor(props){
         super(props);
@@ -24,10 +24,9 @@ class Login extends Component {
                 email:this.state.email,
                 password:this.state.password
             }
-            axios.post('http://localhost:3000/login',data).
-            then(()=>{this.props.navigation.navigate('UserDetail');
-            })
-                .catch((err)=>alert("Invalid User"));
+            loginUser(data)
+                .then(()=>{this.props.navigation.navigate('UserDetail');
+            }).catch((err)=>alert("Invalid User"));
         }
 
     };
