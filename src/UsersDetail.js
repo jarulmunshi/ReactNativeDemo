@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
-import {Text,FlatList,View,Image,ScrollView} from 'react-native';
+import {Text,FlatList,View,Image,ScrollView,TouchableHigh} from 'react-native';
 import axios from 'axios';
 import {Card} from './component/Common';
+import swipeout from 'react-native-swipeout';
 class UsersDetail extends Component{
     static navigationOptions = {
         title: 'User Information'

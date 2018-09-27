@@ -1,15 +1,22 @@
 import React,{Component} from 'react';
 import {Text} from 'react-native';
-import {CardSection,Card,Input,Button} from './component/Common';
+import {CardSection,Card,Input,Button,Header} from './component/Common';
 import axios from 'axios';
 class Login extends Component {
+    constructor(props){
+        super(props);
+        state={
+            email:'',
+            password:''
+        };
+
+    }
     static navigationOptions = {
-        title:"Login"
-    }
-    state={
-        email:'',
-        password:''
-    }
+        title: 'Login',
+        // drawerIcon:({tintColor})=>(
+            // {/*<Icon name="ios-settings" size={25} color={tintColor}/>*/}
+        // ),
+    };
 
     validateUser=()=>{
         if(this.state.email!='' && this.state.password!=''){
@@ -18,15 +25,16 @@ class Login extends Component {
                 password:this.state.password
             }
             axios.post('http://localhost:3000/login',data).
-            then(()=>{alert("Valid User");
+            then(()=>{this.props.navigation.navigate('UserDetail');
             })
                 .catch((err)=>alert("Invalid User"));
         }
 
-    }
+    };
     render(){
         return(
             <Card>
+                {/*<Header headerText="Login"/>*/}
                 <CardSection>
                     <Input
                         onChange={(value)=>this.setState({email:value})}
@@ -44,7 +52,7 @@ class Login extends Component {
                 </CardSection>
                 <CardSection>
                     <Button onPress={()=>{this.validateUser();
-                    this.navigation.navigate('UserDetail');}}>Login</Button>
+                    }}>Login</Button>
                 </CardSection>
 
             </Card>
@@ -63,5 +71,5 @@ const styles={
         alignSelf:'center'
     }
 
-}
+};
 export default Login;

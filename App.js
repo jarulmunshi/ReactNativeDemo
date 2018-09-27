@@ -8,12 +8,8 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {Header} from './src/component/Common'
-import Home from './src/Home';
-import UserDetail from './src/UsersDetail';
-import Drawer from './src/navigation/drawer';
+import Drawer from './src/navigation/Drawer';
 import Stack from './src/navigation/stack';
-import Login from './src/Login';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -21,17 +17,10 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
     return (
-        <View>
-          <Header headerText="User Information"/>
-          <Login/>
-          {/*<Stack/>*/}
-          {/*<Drawer/>*/}
-          {/*<UserDetail/>*/}
-        </View>
+        <Drawer/>
 
     );
   }
