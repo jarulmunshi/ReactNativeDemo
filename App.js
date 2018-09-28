@@ -9,7 +9,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import Drawer from './src/navigation/Drawer';
-import UserDetail from './src/UsersDetail';
+import Stack from './src/navigation/stack';
+import Registration from './src/Registration';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -20,7 +21,7 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
-        <UserDetail/>
+        <Registration/>
 
     );
   }

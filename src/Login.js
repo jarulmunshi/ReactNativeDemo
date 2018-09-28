@@ -23,7 +23,7 @@ class Login extends Component {
             const data={
                 email:this.state.email,
                 password:this.state.password
-            }
+            };
             loginUser(data)
                 .then(()=>{this.props.navigation.navigate('UserDetail');
             }).catch((err)=>alert("Invalid User"));

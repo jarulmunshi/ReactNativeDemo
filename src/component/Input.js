@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput,Text,View} from 'react-native';
 
-const Input =({label,value,onChange,placeholder,secureTextEntry,props})=>{
+const Input =({label,value,onChange,placeholder,secureTextEntry})=>{
     return(
      <View style={styles.containerStyle}>
          <Text style={styles.textStyle}>{label}</Text>
@@ -15,7 +15,7 @@ const Input =({label,value,onChange,placeholder,secureTextEntry,props})=>{
          />
      </View>
     )
-}
+};
 const styles={
     textStyle:{
         flex:1,
@@ -36,6 +36,6 @@ const styles={
         flexDirection:'row',
         alignItems:'center'
     }
-}
+};
 
 export {Input}

@@ -1,6 +1,7 @@
 import React from 'react';
 import UserDetail from './../UsersDetail';
 import Login from './../Login';
+import EditUser from './../EditUser';
 import {createStackNavigator} from 'react-navigation';
 
 const stack = createStackNavigator(
@@ -10,10 +11,13 @@ const stack = createStackNavigator(
         },
         UserDetail:{
             screen:UserDetail
+        },
+        EditUser:{
+            screen:EditUser
         }
     },
     {
-        initialRouteName:'Login'
+        initialRouteName:'UserDetail'
     }
 )
 
