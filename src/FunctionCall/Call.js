@@ -5,7 +5,7 @@ export const registerUser=(user)=> {
     return axios.post('http://localhost:3000/', user);
 };
 export const getUsers=()=>{
-    debugger;
+    //debugger;
     return axios.get('http://localhost:3000/');
 };
 
@@ -18,6 +18,5 @@ export const removeUser=(user)=>{
 };
 
 export const editUser=(user)=>{
-    debugger;
     return axios.put(`http://localhost:3000/${user.name}`,user);
 };

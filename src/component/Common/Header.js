@@ -22,7 +22,7 @@ const Header = (props) =>{
             </View>
         </View>
     )
-}
+};
 const styles={
     headerStyle:{
         marginTop:5,
@@ -34,12 +34,12 @@ const styles={
         shadowOffset:{width:0,height:5},
         shadowOpacity:0.7,
         padding:30,
-        flexDirection:'row',
+        flexDirection:'row'
     },
     textStyle:{
         fontWeight:'bold',
-        fontSize:20,
+        fontSize:20
         // color:'rgb(254,40,81)'
     }
-}
+};
 export {Header};

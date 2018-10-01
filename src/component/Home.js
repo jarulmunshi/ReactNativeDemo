@@ -1,20 +1,13 @@
 import React,{Component} from 'react';
 import {Text,Image,View} from 'react-native';
-import {Card,CardSection,Button,Input,Header} from './component/Common';
+import {CardSection,Button,Input,Header} from './Common/Common';
 import ImagePicker from 'react-native-image-crop-picker';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {registerUser} from './FunctionCall/Call'
+import {styles} from '../Helper/styles/Style';
 class Home extends Component{
-    static navigationOptions = {
-        drawerLabel: 'Registration',
-        // drawerIcon:({tintColor})=>(
-        //     {/*<Icon name="ios-settings" size={25} color={tintColor}/>*/}
-        // ),
-    };
     constructor(props){
         super(props);
-        this.state={
+        this.props={
             name:'',
             nameError:'',
             email:'',
@@ -31,10 +24,20 @@ class Home extends Component{
         ImagePicker.openPicker({
            multiple:true
         }).then(image=>{
+           //  const data = new FormData();
+           //  console.log(image[0]);
+           // // data.append('image',image[0]);
+           //  //§§§console.log(data);
+           // data.append('image',{
+           //      uri:image[0]['path'],
+           //      name:image[0]['filename'],
+           //      type:image[0]['mime']
+           // });
+            //console.log(data);
             //debugger;
             //alert(image[0]["filename"]);
-            console.log(image);
-            this.setState({image:image[0]["sourceURL"]});
+            //console.log(image);
+            this.props.onChange(data,'image');
         })
     };
     render(){
@@ -43,63 +46,50 @@ class Home extends Component{
             <View>
                     <CardSection>
                         <Input
-                            onChange={(value)=>this.setState({name:value,nameError:'',iconError:''})}
+                            onChange={(value)=>this.props.onChange(value,'name')}
                             placeholder="Name"
                             label="Name"
-                            value={this.state.name}
+                            value={this.props.name}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.nameError}</Text>
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.nameError}</Text>
                     </CardSection>
                     <CardSection>
                         <Input
-                            onChange={(value)=>this.setState({email:value,emailError:'',iconError:''})}
+                            onChange={(value)=>this.props.onChange(value,'email')}
                             placeholder="Email"
                             label="Email"
-                            value={this.state.email}
+                            value={this.props.email}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.emailError}</Text>
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.emailError}</Text>
                     </CardSection>
                     <CardSection>
                         <Input
-                            onChange={(value)=>this.setState({password:value,passwordError:'',iconError:''})}
+                            onChange={(value)=>this.props.onChange(value,'password')}
                             secureTextEntry={true}
                             placeholder="Password"
                             label="Password"
-                            value={this.state.password}
+                            value={this.props.password}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.passwordError}</Text>
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.passwordError}</Text>
                     </CardSection>
                     <CardSection>
                         <Input
-                            onChange={(value)=>this.setState({age:value,ageError:'',iconError:''})}
+                            onChange={(value)=>this.props.onChange(value,'age')}
                             placeholder="Age"
                             label="Age"
-                            value={this.state.age}
+                            value={this.props.age}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.ageError}</Text>
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.ageError}</Text>
                     </CardSection>
                     <CardSection>
                         <Text style={styles.headStyle}>Profile Pic</Text>
                         <Button onPress={()=>{this.imageSelection()}}> Select Image</Button>
-                        {/*<Image source={{uri:this.state.image}} style={{height:40,width:50}}></Image>*/}
-                        <Text>{this.state.image}</Text>
+                        {/*<Image source={{uri:this.props.image}} style={{height:40,width:50}}></Image>*/}
+                        {/*<Text>{this.props.image}</Text>*/}
                     </CardSection>
             </View>
 
         )
     }
 }
-const styles={
-    textStyle:{
-        color:'red',
-        fontSize:16
-    },
-    headStyle:{
-        fontSize:18,
-        paddingLeft:20,
-        paddingRight:30,
-        alignSelf:'center'
-    }
-
-};
 export default Home;

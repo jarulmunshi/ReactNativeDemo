@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Text,FlatList,View,Image,ScrollView,TouchableHighlight} from 'react-native';
-import {Card} from './component/Common';
+import {Card} from './component/Common/Common';
 import SwipeOut from 'react-native-swipeout';
 class Demo extends Component {
     render() {

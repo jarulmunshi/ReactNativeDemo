@@ -1,5 +1,5 @@
 import React from 'react';
-import Registration from './../Registration';
+import Registration from '../component/Registration';
 import Stack from './stack';
 import {createDrawerNavigator} from 'react-navigation';
 

@@ -16,6 +16,6 @@ const styles={
         justifyContent:'center',
         marginTop:20
     }
-}
+};
 
 export {Spinner}
