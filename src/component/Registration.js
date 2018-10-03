@@ -1,17 +1,18 @@
 import React,{Component} from 'react';
 import {Text,Image,View} from 'react-native';
-import {Card,CardSection,Button,Input,Header} from './Common/Common';
+import {Card,CardSection,Button,Header} from './Common/Common';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {registerUser} from '../FunctionCall/Call';
+import {imageStyles} from '../Helper/styles/Style';
 import {checkAge,checkEmail,empty,oneEmpty,emailEmpty,passwordEmpty,nameEmpty} from '../Validation/Validation'
 import Home from './Home';
 class Registration extends Component{
     static navigationOptions = {
         drawerLabel: 'Registration',
-        // drawerIcon:({tintColor})=>(
-        //     {/*<Icon name="ios-settings" size={25} color={tintColor}/>*/}
-        // ),
+        drawerIcon:()=>(
+          <Icon name="registered" size={25}/>
+        ),
     };
     constructor(props){
         super(props);
@@ -34,10 +35,15 @@ class Registration extends Component{
         }).then(image=>{
             //debugger;
             const data = new FormData();
-            data.append('image', image);
+            data.append('image',{
+                            uri:image[0]['path'],
+                            name:image[0]['filename'],
+                            type:image[0]['mime']
+                       });
             //alert(image[0]["filename"]);
             //console.log("Image:"+image);
-            this.setState({image:data});
+            //console.log(data);
+            this.setState({image:data._parts});
         })
     };
     checkData=()=>{
@@ -75,7 +81,8 @@ class Registration extends Component{
                 age:this.state.age,
                 imageName:this.state.image
             };
-            registerUser(objUser).then(() => {
+            console.log("imageName:"+this.state.image);
+            registerUser(this.state.image).then(() => {
                 alert("Valid Data");
             }).catch((err) => {
                 alert(err);
@@ -109,7 +116,8 @@ class Registration extends Component{
         //debugger;
         return(
             <View>
-                <Header headerText="Registration"/>
+                <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
+                <Header headerText="Registration" headIcon="registered"/>
                 <Card>
                     <Home
                         name={this.state.name}
@@ -123,6 +131,7 @@ class Registration extends Component{
                         iconError={this.state.iconError}
                         image={this.state.image}
                         onChange={this.onChange}
+                        imageSelection={this.imageSelection}
                     />
                     <CardSection>
                         <Button onPress={()=>this.checkData()}>Save</Button>

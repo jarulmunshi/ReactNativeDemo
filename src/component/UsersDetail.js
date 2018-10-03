@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {Text,FlatList,View,Image,ScrollView,TouchableHighlight,Alert} from 'react-native';
 import {getUsers,removeUser} from '../FunctionCall/Call'
-import {userStyles} from '../Helper/styles/Style';
+import {userStyles,imageStyles} from '../Helper/styles/Style';
+import {Header} from './Common/Common';
 import {SwipeableFlatList} from 'react-native-swipeable-flat-list';
 class UsersDetail extends Component{
     constructor(props){
@@ -55,6 +56,8 @@ class UsersDetail extends Component{
         const {textStyle,viewstyle,buttonStyle} = userStyles;
         return(
             <ScrollView style={{backgroundColor:'white'}}>
+                <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
+                <Header headerText="User Information" headIcon="info-circle"></Header>
                 <SwipeableFlatList
                           data={this.state.users}
                           renderItem={({item})=>

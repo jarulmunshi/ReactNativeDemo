@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const registerUser=(user)=> {
-    console.log("In register");
     return axios.post('http://localhost:3000/', user);
 };
 export const getUsers=()=>{

@@ -1,23 +1,27 @@
 import React,{Component} from 'react';
-import {Text} from 'react-native';
-import {CardSection,Card,Input,Button} from './Common/Common';
+import {Text,View,Image} from 'react-native';
+import {CardSection,Card,Input,Button,Header} from './Common/Common';
 import {loginUser} from '../FunctionCall/Call';
 import {checkEmail,emailEmpty,passwordEmpty} from '../Validation/Validation';
-import {loginStyles} from '../Helper/styles/Style';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {loginStyles,imageStyles} from '../Helper/styles/Style';
 class Login extends Component {
     constructor(props){
         super(props);
-        state={
+        this.state={
             email:'',
-            password:''
+            password:'',
+            emailError:'',
+            passwordError:'',
+            iconError:''
         };
-
     }
+
     static navigationOptions = {
-        title: 'Login',
-        // drawerIcon:({tintColor})=>(
-            // {/*<Icon name="ios-settings" size={25} color={tintColor}/>*/}
-        // ),
+        drawerLabel:'Login',
+        drawerIcon:()=>(
+           <Icon name="sign-in" size={25}/>
+        ),
     };
 
     validateUser=()=>{
@@ -41,37 +45,45 @@ class Login extends Component {
                 password:this.state.password
             };
             loginUser(data)
-                .then(()=>{this.state.navigation.navigate('UserDetail');
+                .then(()=>{this.props.navigation.navigate('UserDetail');
                 }).catch((err)=>alert("Invalid User"));
         }
 
     };
     render(){
         return(
-            <Card>
-                <CardSection>
-                    <Input
-                        onChange={(value)=>this.setState({email:value,emailError:'',iconError:''})}
-                        placeholder="Email"
-                        label="Email"
-                    />
-                    <Text style={loginStyles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.emailError}</Text>
-                </CardSection>
-                <CardSection>
-                    <Input
-                        onChange={(value)=>this.setState({password:value,passwordError:'',iconError:''})}
-                        secureTextEntry={true}
-                        placeholder="Password"
-                        label="Password"
-                    />
-                    <Text style={loginStyles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.passwordError}</Text>
-                </CardSection>
-                <CardSection>
-                    <Button onPress={()=>{this.validateUser();
-                    }}>Login</Button>
-                </CardSection>
+            <View style={{backgroundColor:'white',flex:1}}>
+                <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
+                <Header headerText="Login" headIcon="sign-in"></Header>
 
-            </Card>
+                <Card>
+                    <CardSection>
+
+                        <Input
+                            onChange={(value)=>this.setState({email:value,emailError:'',iconError:''})}
+                            placeholder="Enter Your Email"
+                            label="Email"
+                        />
+                        {/*<Icon name="envelope" size={25} style={{alignSelf:'center',paddingLeft:30}}/>*/}
+                        <Text style={loginStyles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.emailError}</Text>
+                    </CardSection>
+                    <CardSection>
+                        <Input
+                            onChange={(value)=>this.setState({password:value,passwordError:'',iconError:''})}
+                            secureTextEntry={true}
+                            placeholder="Enter Your Password"
+                            label="Password"
+                        />
+                        {/*<Icon name="unlock" size={25} style={{alignSelf:'center',paddingLeft:30}}/>*/}
+                        <Text style={loginStyles.textStyle}><Icon name={this.state.iconError} size={15}/>{this.state.passwordError}</Text>
+                    </CardSection>
+                    <CardSection>
+                        <Button onPress={()=>this.validateUser()}>Login</Button>
+                    </CardSection>
+
+                </Card>
+            </View>
+
         );
     };
 }

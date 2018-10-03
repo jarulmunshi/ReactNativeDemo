@@ -1,9 +1,8 @@
 import React,{Component} from 'react';
 import {Text,Image,View,Modal} from 'react-native';
-import {Card,CardSection,Button,Input,Header} from './Common/Common';
-import ImagePicker from 'react-native-image-crop-picker';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {Card,CardSection,Button,Header} from './Common/Common';
 import {editUser} from '../FunctionCall/Call'
+import {imageStyles} from '../Helper/styles/Style';
 import {checkAge,checkEmail,empty,oneEmpty,emailEmpty,passwordEmpty,nameEmpty} from '../Validation/Validation'
 import Home from './Home';
 class EditUser extends Component{
@@ -111,6 +110,7 @@ class EditUser extends Component{
                     transparent = {false}
                 >
                 <View>
+                    <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
                     <Header headerText="Edit User"/>
                     <Card>
                         <Home

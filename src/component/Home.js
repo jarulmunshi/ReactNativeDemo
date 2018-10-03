@@ -20,26 +20,26 @@ class Home extends Component{
             image:''
         }
     }
-    imageSelection=()=>{
-        ImagePicker.openPicker({
-           multiple:true
-        }).then(image=>{
-           //  const data = new FormData();
-           //  console.log(image[0]);
-           // // data.append('image',image[0]);
-           //  //§§§console.log(data);
-           // data.append('image',{
-           //      uri:image[0]['path'],
-           //      name:image[0]['filename'],
-           //      type:image[0]['mime']
-           // });
-            //console.log(data);
-            //debugger;
-            //alert(image[0]["filename"]);
-            //console.log(image);
-            this.props.onChange(data,'image');
-        })
-    };
+    // imageSelection=()=>{
+    //     ImagePicker.openPicker({
+    //        multiple:true
+    //     }).then(image=>{
+    //          const data = new FormData();
+    //        //  console.log(image[0]);
+    //         data.append('image',image[0]);
+    //        //  //§§§console.log(data);
+    //        // data.append('image',{
+    //        //      uri:image[0]['path'],
+    //        //      name:image[0]['filename'],
+    //        //      type:image[0]['mime']
+    //        // });
+    //         //console.log(data);
+    //         debugger;
+    //         //alert(image[0]["filename"]);
+    //         //console.log(image);
+    //         this.props.onChange(data,'image');
+    //     })
+    // };
     render(){
         //debugger;
         return(
@@ -83,7 +83,7 @@ class Home extends Component{
                     </CardSection>
                     <CardSection>
                         <Text style={styles.headStyle}>Profile Pic</Text>
-                        <Button onPress={()=>{this.imageSelection()}}> Select Image</Button>
+                        <Button onPress={(value)=>{this.props.imageSelection(value,'image')}}> Select Image</Button>
                         {/*<Image source={{uri:this.props.image}} style={{height:40,width:50}}></Image>*/}
                         {/*<Text>{this.props.image}</Text>*/}
                     </CardSection>
