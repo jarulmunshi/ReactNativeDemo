@@ -17,7 +17,7 @@ const stack = createStackNavigator(
         }
     },
     {
-        initialRouteName:'Login',
+        initialRouteName:'UserDetail',
         headerMode:'none'
     }
 );

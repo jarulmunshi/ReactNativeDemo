@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import {Text,Image,View} from 'react-native';
-import {Card,CardSection,Button,Header} from './Common/Common';
+import {Text,Image,View,SafeAreaView} from 'react-native';
+import {Card,CardSection,Button,Header,Spinner} from './Common/Common';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {registerUser} from '../FunctionCall/Call';
@@ -26,7 +26,10 @@ class Registration extends Component{
             age:'',
             ageError:'',
             iconError:'',
-            image:''
+            image:'',
+            loading:false,
+            msg:'',
+            color:'green'
         }
     }
     imageSelection=()=>{
@@ -34,19 +37,21 @@ class Registration extends Component{
             multiple:true
         }).then(image=>{
             //debugger;
-            const data = new FormData();
-            data.append('image',{
-                            uri:image[0]['path'],
-                            name:image[0]['filename'],
-                            type:image[0]['mime']
-                       });
+            // const data = new FormData();
+            // data.append('image',{
+            //                 uri:image[0]['path'],
+            //                 name:image[0]['filename'],
+            //                 type:image[0]['mime']
+            //            });
             //alert(image[0]["filename"]);
             //console.log("Image:"+image);
+            console.log(image[0]);
             //console.log(data);
-            this.setState({image:data._parts});
+            this.setState({image:image[0]['sourceURL']});
         })
     };
     checkData=()=>{
+        this.setState({loading:true});
         if(empty(this.state.email,this.state.password,this.state.age,this.state.name)){
             this.setState({emailError:'Please enter email',iconError:'exclamation-triangle',ageError:'Please enter age',passwordError:'Please enter Password',nameError:'Please enter name'});
         }
@@ -73,7 +78,7 @@ class Registration extends Component{
         }
         else {
             this.setState({emailError:'',ageError:'',passwordError:'',iconError:''});
-            //alert(this.state.email+" "+this.state.age+ " "+this.state.password+" "+this.state.name+" "+this.state.image);
+            console.log(this.state.email+" "+this.state.age+ " "+this.state.password+" "+this.state.name+" "+this.state.image);
             const objUser = {
                 name:this.state.name,
                 email:this.state.email,
@@ -82,10 +87,12 @@ class Registration extends Component{
                 imageName:this.state.image
             };
             console.log("imageName:"+this.state.image);
-            registerUser(this.state.image).then(() => {
-                alert("Valid Data");
+            registerUser(objUser).then(() => {
+                //alert("Valid Data");
+                this.setState({loading:false,msg:'Registration Done Successfully..!',color:'green'});
             }).catch((err) => {
-                alert(err);
+                //alert(err);
+                this.setState({loading:false,msg:'Please Try Again..!',color:'red'});
                 console.log(err);
             })
             this.setState({name:'',email:'',password:'',age:'',image:''});
@@ -97,25 +104,39 @@ class Registration extends Component{
         if(key === 'name'){
             state['nameError']='';
             state['iconError']='';
+            state['msg']='';
         }
         else if(key === 'age'){
             state['ageError']='';
             state['iconError']='';
+            state['msg']='';
         }
         else if(key === 'password'){
             state['passwordError']='';
             state['iconError']='';
+            state['msg']='';
         }
         else if(key === 'email'){
             state['emailError']='';
             state['iconError']='';
+            state['msg']='';
         }
         this.setState(this.state);
     };
+    renderButton=()=>{
+        if(this.state.loading){
+            return <Spinner size="small"/>
+        }
+        else{
+            return(
+                <Button onPress={()=>this.checkData()}>Save</Button>
+                );
+        }
+    }
     render(){
         //debugger;
         return(
-            <View>
+            <SafeAreaView style={{flex:1,backgroundColor: 'white'}}>
                 <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
                 <Header headerText="Registration" headIcon="registered"/>
                 <Card>
@@ -134,10 +155,11 @@ class Registration extends Component{
                         imageSelection={this.imageSelection}
                     />
                     <CardSection>
-                        <Button onPress={()=>this.checkData()}>Save</Button>
+                        {this.renderButton()}
                     </CardSection>
+                    <Text style={{color:this.state.color,fontSize:16,alignSelf:'center',paddingTop:10}}>{this.state.msg}</Text>
                 </Card>
-            </View>
+            </SafeAreaView>
 
         )
     }

@@ -7,9 +7,10 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, SafeAreaView} from 'react-native';
 import Drawer from './src/navigation/Drawer';
 import Stack from './src/navigation/stack';
+import Tab from './src/navigation/tab';
 import Registration from './src/component/Registration';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -21,8 +22,7 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
-        <Drawer/>
-
+        <Tab/>
     );
   }
 }

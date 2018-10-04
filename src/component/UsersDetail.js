@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import {Text,FlatList,View,Image,ScrollView,TouchableHighlight,Alert} from 'react-native';
+import {Text,FlatList,View,Image,ScrollView,TouchableHighlight,Alert,SafeAreaView} from 'react-native';
 import {getUsers,removeUser} from '../FunctionCall/Call'
 import {userStyles,imageStyles} from '../Helper/styles/Style';
 import {Header} from './Common/Common';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {SwipeableFlatList} from 'react-native-swipeable-flat-list';
 class UsersDetail extends Component{
     constructor(props){
@@ -11,7 +12,9 @@ class UsersDetail extends Component{
         this.displayUser();
     }
     static navigationOptions = {
-        title: 'User Information'
+        title: 'User Information',
+        tabBarLabel: 'Users',
+        tabBarIcon: () => <Icon name="users" size={25} style={{color:'gray'}} />
     };
     state={
         users:[],
@@ -55,58 +58,54 @@ class UsersDetail extends Component{
     render(){
         const {textStyle,viewstyle,buttonStyle} = userStyles;
         return(
-            <ScrollView style={{backgroundColor:'white'}}>
-                <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
-                <Header headerText="User Information" headIcon="info-circle"></Header>
-                <SwipeableFlatList
-                          data={this.state.users}
-                          renderItem={({item})=>
-                                    <View style={{height:this.state.height,marginTop:20}}>
-                                            <View style={viewstyle} >
-                                                 <View style={{flex:1}}>
-                                                        <TouchableHighlight onPress={()=>{
-                                                            if(this.state.hide){
-                                                                this.setState({hide:false,height:50});
-                                                            }
-                                                            else {
-                                                                this.setState({hide:true,height:80});
-                                                            }
-                                                            }}>
-                                                             <Text style={textStyle}>{item.name}</Text>
-                                                        </TouchableHighlight>
-                                                        {this.state.hide?
-                                                        (<View><Text style={textStyle}>{item.age}</Text>
-                                                           <Text style={textStyle}>{item.email}</Text></View>
-                                                        ):null}
+                <SafeAreaView style={{ flex:1,backgroundColor: 'white'}}>
+                    <ScrollView
+                        automaticallyAdjustContentInsets={false}
+                    >
 
+                            <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
+                            <Header headerText="Users" headIcon="info-circle"></Header>
+                            <SwipeableFlatList
+                                      data={this.state.users}
+                                      renderItem={({item})=>
+                                                <View style={{height:80,marginTop:20}}>
+                                                        {item &&
+                                                        <View style={viewstyle} >
+                                                             <View>
+                                                                    <Text style={textStyle}>{item.name}</Text>
+                                                                    <Text style={textStyle}>{item.age}</Text>
+                                                                    <Text style={textStyle}>{item.email}</Text>
+
+                                                            </View>
+                                                        </View>
+                                                        }
+                                                </View>
+                                            }
+                                        renderRight={({item})=>
+                                            <View style={{width:120,flexDirection:'row'}}>
+                                                <View style={{paddingRight:10}}>
+                                                    <TouchableHighlight
+                                                        style={[buttonStyle,{backgroundColor:'blue'}]}
+                                                        onPress={()=>{this.props.navigation.navigate('EditUser',{item,displayUser:this.displayUser});}}>
+                                                            <Text style={{color:'white',alignSelf:'center'}}>Edit</Text>
+                                                    </TouchableHighlight>
+                                                </View>
+                                                <View style={{paddingRight:10}}>
+                                                    <TouchableHighlight
+                                                        style={buttonStyle}
+                                                        onPress={()=>this.removeData(item.name)}>
+                                                             <Text style={{color:'white',alignSelf:'center'}}>Delete</Text>
+                                                    </TouchableHighlight>
                                                 </View>
                                             </View>
-                                    </View>
-                                }
-                            renderRight={({item})=>
-                                <View style={{width:120,flexDirection:'row'}}>
-                                    <View style={{paddingRight:10}}>
-                                        <TouchableHighlight
-                                            style={[buttonStyle,{backgroundColor:'blue'}]}
-                                            onPress={()=>{this.props.navigation.navigate('EditUser',{item,displayUser:this.displayUser});}}>
-                                                <Text style={{color:'white',alignSelf:'center'}}>Edit</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                    <View style={{paddingRight:10}}>
-                                        <TouchableHighlight
-                                            style={buttonStyle}
-                                            onPress={()=>this.removeData(item.name)}>
-                                                 <Text style={{color:'white',alignSelf:'center'}}>Delete</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                </View>
-                            }
+                                        }
 
-                          keyExtractor={item=>item.email}
+                                      keyExtractor={item=>item.email}
 
-                />
-            </ScrollView>
+                            />
 
+                        </ScrollView>
+                </SafeAreaView>
         )
     }
 }

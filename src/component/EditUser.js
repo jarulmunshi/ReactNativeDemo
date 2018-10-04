@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
-import {Text,Image,View,Modal} from 'react-native';
+import {Text,Image,View,Modal,SafeAreaView,ScrollView} from 'react-native';
 import {Card,CardSection,Button,Header} from './Common/Common';
-import {editUser} from '../FunctionCall/Call'
+import {editUser} from '../FunctionCall/Call';
+import ImagePicker from 'react-native-image-crop-picker';
 import {imageStyles} from '../Helper/styles/Style';
 import {checkAge,checkEmail,empty,oneEmpty,emailEmpty,passwordEmpty,nameEmpty} from '../Validation/Validation'
 import Home from './Home';
@@ -12,6 +13,7 @@ class EditUser extends Component{
         super(props);
         this.state={
             name:data.name,
+            oldname:data.name,
             nameError:'',
             email:data.email,
             emailError:'',
@@ -71,7 +73,8 @@ class EditUser extends Component{
                 email:this.state.email,
                 password:this.state.password,
                 age:this.state.age,
-                imageName:this.state.image
+                imageName:this.state.image,
+                oldname:this.state.oldname
             };
             editUser(objUser).then(() => {
                 this.props.navigation.navigate('UserDetail');
@@ -81,6 +84,24 @@ class EditUser extends Component{
             })
             this.setState({name:'',email:'',password:'',age:'',image:'',emailError:'',passwordError:'',nameError:'',ageError:''});
         }
+    };
+    imageSelection=()=>{
+        ImagePicker.openPicker({
+            multiple:true
+        }).then(image=>{
+            //debugger;
+            // const data = new FormData();
+            // data.append('image',{
+            //                 uri:image[0]['path'],
+            //                 name:image[0]['filename'],
+            //                 type:image[0]['mime']
+            //            });
+            //alert(image[0]["filename"]);
+            //console.log("Image:"+image);
+            console.log(image[0]);
+            //console.log(data);
+            this.setState({image:image[0]['sourceURL']});
+        })
     };
     onChange=(text,key)=>{
         let state=this.state;
@@ -106,32 +127,37 @@ class EditUser extends Component{
     render(){
         //debugger;
         return(
-                <Modal
-                    transparent = {false}
-                >
-                <View>
-                    <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
-                    <Header headerText="Edit User"/>
-                    <Card>
-                        <Home
-                            name={this.state.name}
-                            nameError={this.state.nameError}
-                            email={this.state.email}
-                            emailError={this.state.emailError}
-                            password={this.state.password}
-                            passwordError={this.state.passwordError}
-                            age={this.state.age}
-                            ageError={this.state.ageError}
-                            iconError={this.state.iconError}
-                            image={this.state.image}
-                            onChange={this.onChange}
-                        />
-                        <CardSection>
-                            <Button onPress={()=>this.editData()}>Edit</Button>
-                        </CardSection>
-                    </Card>
-                </View>
-                </Modal>
+
+                    <Modal
+                        transparent = {false}
+                    >
+                        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+                            <ScrollView scrollEnabled={false}>
+                                <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
+                                <Header headerText="Edit User" headIcon="edit"/>
+                                <Card>
+                                    <Home
+                                        name={this.state.name}
+                                        nameError={this.state.nameError}
+                                        email={this.state.email}
+                                        emailError={this.state.emailError}
+                                        password={this.state.password}
+                                        passwordError={this.state.passwordError}
+                                        age={this.state.age}
+                                        ageError={this.state.ageError}
+                                        iconError={this.state.iconError}
+                                        image={this.state.image}
+                                        onChange={this.onChange}
+                                        imageSelection={this.imageSelection}
+                                    />
+                                    <CardSection>
+                                        <Button onPress={()=>this.editData()}>Edit</Button>
+                                    </CardSection>
+                                </Card>
+                            </ScrollView>
+                        </SafeAreaView>
+                    </Modal>
+
 
 
         )

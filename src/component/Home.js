@@ -7,7 +7,7 @@ import {styles} from '../Helper/styles/Style';
 class Home extends Component{
     constructor(props){
         super(props);
-        this.props={
+        this.state={
             name:'',
             nameError:'',
             email:'',
@@ -50,8 +50,10 @@ class Home extends Component{
                             placeholder="Name"
                             label="Name"
                             value={this.props.name}
+                            keyboardType={'default'}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.nameError}</Text>
+                        {this.props.iconError !=="" &&
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.nameError}</Text>}
                     </CardSection>
                     <CardSection>
                         <Input
@@ -59,8 +61,10 @@ class Home extends Component{
                             placeholder="Email"
                             label="Email"
                             value={this.props.email}
+                            keyboardType="email-address"
                         />
-                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.emailError}</Text>
+                        {this.props.iconError !=="" &&
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.emailError}</Text>}
                     </CardSection>
                     <CardSection>
                         <Input
@@ -69,8 +73,10 @@ class Home extends Component{
                             placeholder="Password"
                             label="Password"
                             value={this.props.password}
+                            keyboardType={'default'}
                         />
-                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.passwordError}</Text>
+                        {this.props.iconError !=="" &&
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.passwordError}</Text>}
                     </CardSection>
                     <CardSection>
                         <Input
@@ -78,8 +84,10 @@ class Home extends Component{
                             placeholder="Age"
                             label="Age"
                             value={this.props.age}
+                            keyboardType='decimal-pad'
                         />
-                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.ageError}</Text>
+                        {this.props.iconError !=="" &&
+                        <Text style={styles.textStyle}><Icon name={this.props.iconError} size={15}/>{this.props.ageError}</Text>}
                     </CardSection>
                     <CardSection>
                         <Text style={styles.headStyle}>Profile Pic</Text>

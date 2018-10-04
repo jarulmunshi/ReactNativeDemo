@@ -17,5 +17,5 @@ export const removeUser=(user)=>{
 };
 
 export const editUser=(user)=>{
-    return axios.put(`http://localhost:3000/${user.name}`,user);
+    return axios.put(`http://localhost:3000/${user.oldname}`,user);
 };

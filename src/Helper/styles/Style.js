@@ -21,16 +21,16 @@ export const userStyles={
         color:'rgb(43,83,137)'
     },
     viewstyle:{
-        flexDirection:'row',
-        flex:1
+        borderBottomWidth:1,
+        borderColor:'rgb(235,192,127)'
     },
     buttonStyle:{
         width:50,
-        height:40,
+        height:30,
         backgroundColor:'red',
         justifyContent:'center',
         borderRadius:5,
-        paddingTop:5
+        paddingTop:5,
     }
 };
 
@@ -90,7 +90,6 @@ export const headerStyles={
     headerStyle:{
         justifyContent:'center',
         alignItems:'center',
-        borderBottomWidth:1,
         borderColor:'#ddd',
         shadowColor:'#fff',
         shadowOffset:{width:0,height:5},
@@ -152,7 +151,7 @@ export const imageStyles={
     imgStyle:{
         height:70,
         width:70,
-        marginTop:20,
-        alignSelf:'center'
+        alignSelf:'center',
+        marginTop:10
     }
 }
