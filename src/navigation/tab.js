@@ -12,11 +12,9 @@ export default TabNavigator(
 
     },
     {
-        navigationOptions:({navigation})=>
-            ({tabBarIcon:({focused,tintColor})=> {
-                const {routeName} = navigation.state;
-            }
-            }),
+        navigationOptions:{
+            gesturesEnabled: false
+        },
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
         tabBarOptions: {
@@ -25,7 +23,7 @@ export default TabNavigator(
             showIcon:true
         },
         animationEnabled: true,
-        swipeEnabled: true,
+        swipeEnabled: false,
     }
 
 );
