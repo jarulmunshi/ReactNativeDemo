@@ -45,7 +45,7 @@ class Login extends Component {
                 password:this.state.password
             };
             loginUser(data)
-                .then(()=>{this.props.navigation.navigate('UserDetail');
+                .then(()=>{this.props.navigation.navigate('tab');
                 }).catch((err)=>alert("Invalid User"));
         }
 

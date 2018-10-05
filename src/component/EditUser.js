@@ -22,7 +22,9 @@ class EditUser extends Component{
             age:String(data.age),
             ageError:'',
             iconError:'',
-            image:data.imageName
+            image:data.imageName,
+            isBack:true,
+            disable:true
         };
 
     }
@@ -77,10 +79,10 @@ class EditUser extends Component{
                 oldname:this.state.oldname
             };
             editUser(objUser).then(() => {
-                this.props.navigation.navigate('UserDetail');
+                this.props.navigation.navigate('tab');
             }).catch((err) => {
                 //alert("Not valid user");
-                this.props.navigation.navigate('UserDetail');
+                this.props.navigation.navigate('tab');
             })
             this.setState({name:'',email:'',password:'',age:'',image:'',emailError:'',passwordError:'',nameError:'',ageError:''});
         }
@@ -124,17 +126,25 @@ class EditUser extends Component{
         }
         this.setState(this.state);
     };
+    onBackButtonPress=()=>{
+        this.props.navigation.goBack();
+    }
     render(){
         //debugger;
         return(
 
                     <Modal
                         transparent = {false}
+                        animationType="slide"
                     >
                         <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
                             <ScrollView scrollEnabled={false}>
                                 <Image source={require('./../images/imgUser.jpeg')} size={70} style={imageStyles.imgStyle}/>
-                                <Header headerText="Edit User" headIcon="edit"/>
+                                <Header headerText="Edit User"
+                                        headIcon="edit"
+                                        onBackButtonPress={this.onBackButtonPress}
+                                        isBack={this.state.isBack}
+                                        />
                                 <Card>
                                     <Home
                                         name={this.state.name}

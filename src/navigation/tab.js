@@ -12,9 +12,6 @@ export default TabNavigator(
 
     },
     {
-        navigationOptions:{
-            gesturesEnabled: false
-        },
         tabBarComponent: TabBarBottom,
         tabBarPosition: 'bottom',
         tabBarOptions: {
